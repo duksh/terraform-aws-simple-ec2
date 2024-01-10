@@ -33,8 +33,8 @@ resource "aws_security_group" "dk-res-sg-1" {
     cidr_blocks = ["0.0.0.0/0"]
   }
  
-  # Egress rules
-  egress {
+  # Egress ruless
+    egress {
     description = "Allow all outbound traffic"
     from_port   = 0
     to_port     = 0
