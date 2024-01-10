@@ -9,7 +9,7 @@ resource "aws_security_group" "dk-res-sg-1" {
   description = "A simple security group from DK TerraMod"
 
   // Define your security group rules here
-  
+
   # Ingress rules
   ingress {
     description = "Allow HTTP"
@@ -18,7 +18,7 @@ resource "aws_security_group" "dk-res-sg-1" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
- 
+
   ingress {
     description = "Allow HTTPS"
     from_port   = 443
@@ -26,7 +26,7 @@ resource "aws_security_group" "dk-res-sg-1" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
- 
+
   ingress {
     description = "Allow SSH"
     from_port   = 22
@@ -34,7 +34,7 @@ resource "aws_security_group" "dk-res-sg-1" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
- 
+
   # Egress rules
   egress {
     description = "Allow all outbound traffic"
@@ -47,9 +47,9 @@ resource "aws_security_group" "dk-res-sg-1" {
 
 resource "aws_instance" "dk-ec2" {
   count = var.instance_count
-  
-  ami           = "ami-062a49a8152e4c031" # Replace with the default AMI ID for your region
-  instance_type = "t2.micro"     # Replace with your desired instance type
+
+  ami           = var.ami           # Replace with the default AMI ID for your region
+  instance_type = var.instance_type # Replace with your desired instance type
 
   security_groups = [aws_security_group.dk-res-sg-1[count.index].name]
 
