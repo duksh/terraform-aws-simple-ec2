@@ -38,4 +38,4 @@ terraform.rc
 *.drawio
 
 # macos dot underscore files
-*._* 
+*._*  
