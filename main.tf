@@ -3,8 +3,7 @@ provider "aws" {
 }
 
 resource "aws_security_group" "dk-res-sg-1" {
-  count = var.instance_count
-
+  count       = var.instance_count
   name        = "dk-sg-${count.index}"
   description = "A simple security group from DK TerraMod"
 
@@ -44,14 +43,22 @@ resource "aws_security_group" "dk-res-sg-1" {
 }
 
 resource "aws_instance" "dk-ec2" {
-  count = var.instance_count
-
-  ami           = var.ami           # Replace with the default AMI ID for your region
-  instance_type = var.instance_type # Replace with your desired instance type
-
+  count           = var.instance_count
+  ami             = var.ami           # Replace with the default AMI ID for your region
+  instance_type   = var.instance_type # Replace with your desired instance type
   security_groups = [aws_security_group.dk-res-sg-1[count.index].name]
-
   // Other configurations like key_name, tags, etc.
+  tags = {
+    Name         = "DK-EC2-${count.index}"
+    BuiltBy      = "Packer"
+    Env          = "SBX"
+    Application  = "Packer"
+    Owner        = "duksh.k@teamwork.net"
+    Description  = "Testing Packer + Ansible"
+    BusinessUnit = "TWMU"
+    Schedule     = "24h_24h_7j_7j"
+
+  }
 
 }
 
